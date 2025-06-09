@@ -34,7 +34,7 @@ jobs:
         run: | 
           echo "${{ secrets.KEYSTORE }}" | base64 --decode > ${{ github.workspace }}/keystore.jks || true
 
-      - name: 🧪 Debug: Keystore Info
+      - name: 🧪 Debug Keystore Info
         run: |
           echo "➡️ Keystore secret length (base64-encoded):"
           echo "${{ secrets.KEYSTORE }}" | wc -c
