@@ -30,6 +30,22 @@ jobs:
         with:
           cache: true
 
+      - name: 📏 Check Keystore Secret Size
+        run: |
+          echo "➡️ Keystore secret length (base64-encoded):"
+          echo "${{ secrets.KEYSTORE }}" | wc -c
+
+      - name: 🧪 Check Keystore File Type
+        run: |
+          echo "➡️ File type of decoded keystore:"
+          file ${{ github.workspace }}/keystore.jks
+
+      - name: 🔍 Hexdump Preview of Keystore
+        run: |
+          echo "➡️ First 64 bytes of the keystore (hex view):"
+          head -c 64 ${{ github.workspace }}/keystore.jks | hexdump -C
+
+
       - name: 🔐 Decode Keystore
         run: echo ${{ secrets.KEYSTORE }} | base64 --decode > ${{ github.workspace }}/keystore.jks
 
