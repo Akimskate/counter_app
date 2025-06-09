@@ -31,26 +31,7 @@ jobs:
           cache: true
 
       - name: 🔐 Decode Keystore
-        run: |
-          echo "${{ secrets.KEYSTORE }}" | base64 --decode > ${{ github.workspace }}/keystore.jks
-
-
-      - name: 🔢 Bump build number
-        run: |
-          NEW_BUILD_NUMBER=$(date +%s)
-          sed -i "s/^version: .*$/version: 1.0.0+$NEW_BUILD_NUMBER/" pubspec.yaml
-
-      - name: 🧪 Debug Keystore Info
-        run: |
-          echo "➡️ Keystore secret length (base64-encoded):"
-          echo "${{ secrets.KEYSTORE }}" | wc -c
-          echo "➡️ Checking if keystore.jks exists:"
-          ls -l ${{ github.workspace }}/keystore.jks || echo "❌ keystore.jks not found"
-          echo "➡️ File type of decoded keystore:"
-          file ${{ github.workspace }}/keystore.jks || echo "❌ file command failed"
-          echo "➡️ First 64 bytes of the keystore (hex view):"
-          head -c 64 ${{ github.workspace }}/keystore.jks | hexdump -C || echo "❌ head/hexdump failed"
-
+        run: echo "${{ secrets.KEYSTORE }}" | base64 --decode > ${{ github.workspace }}/keystore.jks
 
       - name: 🚀 Shorebird Release
         uses: shorebirdtech/shorebird-release@v0
