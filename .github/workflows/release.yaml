@@ -34,6 +34,11 @@ jobs:
         run: | 
           echo "${{ secrets.KEYSTORE }}" | base64 --decode > ${{ github.workspace }}/keystore.jks || true
 
+      - name: 🔢 Bump build number
+        run: |
+          NEW_BUILD_NUMBER=$(date +%s)
+          sed -i "s/^version: .*$/version: 1.0.0+$NEW_BUILD_NUMBER/" pubspec.yaml
+
       - name: 🧪 Debug Keystore Info
         run: |
           echo "➡️ Keystore secret length (base64-encoded):"
