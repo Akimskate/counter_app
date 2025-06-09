@@ -30,24 +30,21 @@ jobs:
         with:
           cache: true
 
-      - name: 📏 Check Keystore Secret Size
+      - name: 🔐 Decode Keystore (tolerant)
+        run: | 
+          echo "${{ secrets.KEYSTORE }}" | base64 --decode > ${{ github.workspace }}/keystore.jks || true
+
+      - name: 🧪 Debug: Keystore Info
         run: |
           echo "➡️ Keystore secret length (base64-encoded):"
           echo "${{ secrets.KEYSTORE }}" | wc -c
-
-      - name: 🧪 Check Keystore File Type
-        run: |
+          echo "➡️ Checking if keystore.jks exists:"
+          ls -l ${{ github.workspace }}/keystore.jks || echo "❌ keystore.jks not found"
           echo "➡️ File type of decoded keystore:"
-          file ${{ github.workspace }}/keystore.jks
-
-      - name: 🔍 Hexdump Preview of Keystore
-        run: |
+          file ${{ github.workspace }}/keystore.jks || echo "❌ file command failed"
           echo "➡️ First 64 bytes of the keystore (hex view):"
-          head -c 64 ${{ github.workspace }}/keystore.jks | hexdump -C
+          head -c 64 ${{ github.workspace }}/keystore.jks | hexdump -C || echo "❌ head/hexdump failed"
 
-
-      - name: 🔐 Decode Keystore
-        run: echo ${{ secrets.KEYSTORE }} | base64 --decode > ${{ github.workspace }}/keystore.jks
 
       - name: 🚀 Shorebird Release
         uses: shorebirdtech/shorebird-release@v0
