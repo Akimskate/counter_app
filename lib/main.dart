@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey),
       ),
-      home: const MyHomePage(title: 'Flutter Clicker Patch workflow test'),
+      home: const MyHomePage(title: 'Super Flutter Clicker Patch workflow test'),
     );
   }
 }
