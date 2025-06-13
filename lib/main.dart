@@ -28,9 +28,9 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellow),
       ),
-      home: const MyHomePage(title: 'Super Flutter Clicker Patch workflow test'),
+      home: const MyHomePage(title: 'Super clicker'),
     );
   }
 }
